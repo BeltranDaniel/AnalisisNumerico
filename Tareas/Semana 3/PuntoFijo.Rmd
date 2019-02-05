@@ -36,7 +36,6 @@ pasos<-2/100000
 
 cat("Primera raiz", puntofijo(0,1))
 
-x<- puntofijo(1,2)
 cat("Segunda raiz", puntofijo(1,2))
 
 ```
