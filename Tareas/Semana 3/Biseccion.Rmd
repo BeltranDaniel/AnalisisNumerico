@@ -1,0 +1,43 @@
+---
+title: "Metodo de biseccion"
+output: html_notebook
+---
+
+```{r}
+f <- function (x) {
+  return (exp(x) - pi*x)
+}
+
+
+biseccion <- function(a,b){
+  
+  
+  E <- b-a
+  error<- 1e-4
+  x<-0
+  
+  while (error < E){
+      
+    x<- (a+b)/2
+    
+    if(f(x)*f(a) < 0 )
+      b = x
+    if(f(x)*f(b) < 0)
+      a = x
+    
+    E <- (b-a)/2
+  }
+  
+  return(x)
+}
+
+cat("La primera raiz es: ", biseccion(0,1))
+
+cat("La segunda raiz es: ", biseccion(1,2))
+
+```
+```{r}
+plot(f)
+```
+
+

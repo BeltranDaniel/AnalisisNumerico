@@ -16,6 +16,7 @@ puntofijo <- function(a,b){
   
   E<-1
   error<-1e-4
+  x<- a
   
   while(error < E)
   {
@@ -31,16 +32,12 @@ puntofijo <- function(a,b){
   return (x)
 }
 
-x<-0
-x1<-0
 pasos<-2/100000
 
-x<- puntofijo(0,1)
-cat("Primera raíz", x, g(x))
+cat("Primera raiz", puntofijo(0,1))
 
-x<-1
 x<- puntofijo(1,2)
-cat("Segunda raíz", x, g(x))
+cat("Segunda raiz", puntofijo(1,2))
 
 ```
 
