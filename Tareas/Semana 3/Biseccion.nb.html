@@ -241,7 +241,7 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZiA8LSBmdW5jdGlvbiAoeCkge1xuICByZXR1cm4gKGV4cCh4KSAtIHBpKngpXG59XG5iaXNlY2Npb24gPC0gZnVuY3Rpb24oYSxiKXtcbiAgXG4gIFxuICBFIDwtIGItYVxuICBlcnJvcjwtIDFlLTRcbiAgeDwtMFxuICBcbiAgd2hpbGUgKGVycm9yIDwgRSl7XG4gICAgICBcbiAgICB4PC0gKGErYikvMlxuICAgIFxuICAgIGlmKGYoeCkqZihhKSA8IDAgKVxuICAgICAgYiA9IHhcbiAgICBpZihmKHgpKmYoYikgPCAwKVxuICAgICAgYSA9IHhcbiAgICBcbiAgICBFIDwtIChiLWEpLzJcbiAgfVxuICBcbiAgcmV0dXJuKHgpXG59XG5jYXQoXCJMYSBwcmltZXJhIHJhaXogZXM6IFwiLCBiaXNlY2Npb24oMCwxKSlcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZiA8LSBmdW5jdGlvbiAoeCkge1xuICByZXR1cm4gKGV4cCh4KSAtIHBpKngpXG59XG5iaXNlY2Npb24gPC0gZnVuY3Rpb24oYSxiKXtcbiAgXG4gIFxuICBFIDwtIGItYVxuICBlcnJvcjwtIDFlLTRcbiAgeDwtMFxuICBcbiAgd2hpbGUgKGVycm9yIDwgRSl7XG4gICAgICBcbiAgICB4PC0gKGErYikvMlxuICAgIFxuICAgIGlmKGYoeCkqZihhKSA8IDAgKVxuICAgICAgYiA9IHhcbiAgICBpZihmKHgpKmYoYikgPCAwKVxuICAgICAgYSA9IHhcbiAgICBcbiAgICBFIDwtIChiLWEpLzJcbiAgfVxuICBFIDw8LSBFXG4gIHJldHVybih4KVxufVxuRTwtMFxuY2F0KFwiTGEgcHJpbWVyYSByYWl6IGVzOiBcIiwgYmlzZWNjaW9uKDAsMSksIFwiXFxuRXJyb3I6IFwiLCBFKVxuYGBgIn0= -->
 <pre class="r"><code>f &lt;- function (x) {
   return (exp(x) - pi*x)
 }
@@ -263,19 +263,23 @@ biseccion &lt;- function(a,b){
     
     E &lt;- (b-a)/2
   }
-  
+  E &lt;&lt;- E
   return(x)
 }
-cat(&quot;La primera raiz es: &quot;, biseccion(0,1))</code></pre>
+E&lt;-0
+cat(&quot;La primera raiz es: &quot;, biseccion(0,1), &quot;\nError: &quot;, E)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTGEgcHJpbWVyYSByYWl6IGVzOiAgMC41NTM4MzNcbiJ9 -->
-<pre><code>La primera raiz es:  0.553833</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiTGEgcHJpbWVyYSByYWl6IGVzOiAgMC41NTM4MzMgXG5FcnJvcjogIDYuMTAzNTE2ZS0wNVxuIn0= -->
+<pre><code>La primera raiz es:  0.553833 
+Error:  6.103516e-05</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2F0KFwiTGEgc2VndW5kYSByYWl6IGVzOiBcIiwgYmlzZWNjaW9uKDEsMikpXG5gYGAifQ== -->
-<pre class="r"><code>cat(&quot;La segunda raiz es: &quot;, biseccion(1,2))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2F0KFwiXFxuTGEgc2VndW5kYSByYWl6IGVzOiBcIiwgYmlzZWNjaW9uKDEsMiksIFwiXFxuRXJyb3I6IFwiLCBFKVxuYGBgIn0= -->
+<pre class="r"><code>cat(&quot;\nLa segunda raiz es: &quot;, biseccion(1,2), &quot;\nError: &quot;, E)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTGEgc2VndW5kYSByYWl6IGVzOiAgMS42Mzg1NVxuIn0= -->
-<pre><code>La segunda raiz es:  1.63855</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiXG5MYSBzZWd1bmRhIHJhaXogZXM6ICAxLjYzODU1IFxuRXJyb3I6ICA2LjEwMzUxNmUtMDVcbiJ9 -->
+<pre><code>
+La segunda raiz es:  1.63855 
+Error:  6.103516e-05</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-chunk-begin -->
@@ -289,7 +293,7 @@ cat(&quot;La primera raiz es: &quot;, biseccion(0,1))</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIk1ldG9kbyBkZSBiaXNlY2Npb24iDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7cn0NCmYgPC0gZnVuY3Rpb24gKHgpIHsNCiAgcmV0dXJuIChleHAoeCkgLSBwaSp4KQ0KfQ0KDQoNCmJpc2VjY2lvbiA8LSBmdW5jdGlvbihhLGIpew0KICANCiAgDQogIEUgPC0gYi1hDQogIGVycm9yPC0gMWUtNA0KICB4PC0wDQogIA0KICB3aGlsZSAoZXJyb3IgPCBFKXsNCiAgICAgIA0KICAgIHg8LSAoYStiKS8yDQogICAgDQogICAgaWYoZih4KSpmKGEpIDwgMCApDQogICAgICBiID0geA0KICAgIGlmKGYoeCkqZihiKSA8IDApDQogICAgICBhID0geA0KICAgIA0KICAgIEUgPC0gKGItYSkvMg0KICB9DQogIA0KICByZXR1cm4oeCkNCn0NCg0KY2F0KCJMYSBwcmltZXJhIHJhaXogZXM6ICIsIGJpc2VjY2lvbigwLDEpKQ0KDQpjYXQoIkxhIHNlZ3VuZGEgcmFpeiBlczogIiwgYmlzZWNjaW9uKDEsMikpDQoNCmBgYA0KYGBge3J9DQpwbG90KGYpDQpgYGANCg0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIk1ldG9kbyBkZSBiaXNlY2Npb24iDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7cn0NCmYgPC0gZnVuY3Rpb24gKHgpIHsNCiAgcmV0dXJuIChleHAoeCkgLSBwaSp4KQ0KfQ0KDQoNCmJpc2VjY2lvbiA8LSBmdW5jdGlvbihhLGIpew0KICANCiAgDQogIEUgPC0gYi1hDQogIGVycm9yPC0gMWUtNA0KICB4PC0wDQogIA0KICB3aGlsZSAoZXJyb3IgPCBFKXsNCiAgICAgIA0KICAgIHg8LSAoYStiKS8yDQogICAgDQogICAgaWYoZih4KSpmKGEpIDwgMCApDQogICAgICBiID0geA0KICAgIGlmKGYoeCkqZihiKSA8IDApDQogICAgICBhID0geA0KICAgIA0KICAgIEUgPC0gKGItYSkvMg0KICB9DQogIEUgPDwtIEUNCiAgcmV0dXJuKHgpDQp9DQoNCkU8LTANCg0KY2F0KCJMYSBwcmltZXJhIHJhaXogZXM6ICIsIGJpc2VjY2lvbigwLDEpLCAiXG5FcnJvcjogIiwgRSkNCg0KY2F0KCJcbkxhIHNlZ3VuZGEgcmFpeiBlczogIiwgYmlzZWNjaW9uKDEsMiksICJcbkVycm9yOiAiLCBFKQ0KDQpgYGANCmBgYHtyfQ0KcGxvdChmKQ0KYGBgDQoNCg0K</div>
 
 
 

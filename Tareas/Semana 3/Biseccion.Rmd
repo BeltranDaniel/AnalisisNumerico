@@ -27,13 +27,15 @@ biseccion <- function(a,b){
     
     E <- (b-a)/2
   }
-  
+  E <<- E
   return(x)
 }
 
-cat("La primera raiz es: ", biseccion(0,1))
+E<-0
 
-cat("La segunda raiz es: ", biseccion(1,2))
+cat("La primera raiz es: ", biseccion(0,1), "\nError: ", E)
+
+cat("\nLa segunda raiz es: ", biseccion(1,2), "\nError: ", E)
 
 ```
 ```{r}

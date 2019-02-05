@@ -14,9 +14,9 @@ g <- function (x) {
 
 puntofijo <- function(a,b){
   
-  E<-1
-  error<-1e-4
+  error<-1e-5
   x<- a
+  E<-b-a
   
   while(error < E)
   {
@@ -29,14 +29,18 @@ puntofijo <- function(a,b){
     E <- abs(x1 -x)/abs(x1)
     
   }
+  
+  E <<- E
+  
   return (x)
 }
 
 pasos<-2/100000
 
-cat("Primera raiz", puntofijo(0,1))
+E<-0
+cat("Primera raiz: ", puntofijo(0,1), "\nError: ", E)
 
-cat("Segunda raiz", puntofijo(1,2))
+cat("\nSegunda raiz: ", puntofijo(1,2), "\nError: ", E)
 
 ```
 
