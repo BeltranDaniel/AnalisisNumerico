@@ -12,6 +12,8 @@ f <- function (x) {
 
 plot(f)
 
+vec <- 0
+
 ```
 
 ## Metodo de Newton-Raphson
@@ -28,6 +30,7 @@ newtonR <- function(x){
   error <- 1e-5
   x1<-0 
   iteraciones<-0
+  vec <-0
   
   while(error < E){
     
@@ -36,9 +39,12 @@ newtonR <- function(x){
     E <- abs(x1-x)/abs(x1)
     x <- x1
     
+    vec<-c(vec,E)
+    
   }
   E <<- E
   iteraciones <<- iteraciones
+  vec <<- vec
   
   return(x)
   
@@ -46,8 +52,10 @@ newtonR <- function(x){
 
 
 cat("Primera raiz: ", newtonR(1), "\nError: ", E , "\nIteraciones:", iteraciones)
+plot(vec[2:iteraciones], xlab="Iteracion", ylab="Error")
 
 cat("Segunda raiz: ", newtonR(2), "\nError: ", E, "\nIteraciones:", iteraciones)
+plot(vec[2:iteraciones], xlab="Iteracion", ylab="Error")
 ```
 
 ## Metodo de biseccion
@@ -61,6 +69,7 @@ biseccion <- function(a,b){
   error<- 1e-5
   x<-0
   iteraciones<-0
+  vec <-0
   
   while (error < E){
       
@@ -73,18 +82,25 @@ biseccion <- function(a,b){
     
     E <- (b-a)/2
     
+    vec<-c(vec,E)
+    
     iteraciones<-iteraciones+1
   }
+  
+  vec<<-vec
   iteraciones <<- iteraciones
   E <<- E
+  
   return(x)
 }
 
 E<-0
 
 cat("La primera raiz es: ", biseccion(0,1), "\nError: ", E, "\nIteraciones:", iteraciones)
+plot(vec[2:iteraciones], xlab="Iteracion", ylab="Error")
 
 cat("La segunda raiz es: ", biseccion(1,2), "\nError: ", E, "\nIteraciones:", iteraciones)
+plot(vec[2:iteraciones], xlab="Iteracion", ylab="Error")
 
 ```
 
@@ -103,36 +119,45 @@ puntofijo <- function(a,b){
   E<-b-a
   iteraciones<-0
   
+  
+  if((g(a)-a)*(g(b)-b) > 0)
+  {
+    return("No existe la raiz en el intervalo especificado")
+    
+  }
+  
   while(error < E)
   {
     x1 <- g(x)
     
-    if(x != x1){
-      x <- x + pasos
-    }
+    E <- abs(x1 -x)
     
-    E <- abs(x1 -x)/abs(x1)
+    x <- x1 
+      
+    vec<-c(vec,E)
     
     iteraciones <- iteraciones+1
   }
-  iteraciones <<- iteraciones
-  E <<- E
   
-  return (x)
+  vec<<-vec
+  iteraciones<<-iteraciones
+  
+  return(cat("Raiz: " , x1 , "\nError: ", E, "\nIteraciones:", iteraciones))
+
 }
 
-pasos<-1/10000
-
-E<-0
-cat("Primera raiz: ", puntofijo(0,1), "\nError: ", E, "\nIteraciones:", iteraciones)
-
-cat("Segunda raiz: ", puntofijo(1,2), "\nError: ", E, "\nIteraciones:", iteraciones)
-
+vec<-0
+iteraciones<-0
 ```
+### Resultado
+```{r}
+puntofijo(0,1)
+
+plot(vec[2:iteraciones], xlab="Iteracion", ylab="Error")
+```
+
 
 ##Conclusion
 
 Tal y como se puede observar en los datos anteriores, el Metodo de Newton-Raphson es el que mejor converge, ademas presenta el error mas pequeno entre los 3 metodos. No obstante, este metodo tiene el problema de que no se puede garantizar que siempre encuentre la solucion.
-
-Finalmente, cabe destacar que el metodo de punto fijo es el mas lento, sin embargo, el numero de repeticiones depende en gran medida del tamano de los pasos
 
