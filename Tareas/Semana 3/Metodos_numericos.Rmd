@@ -1,0 +1,138 @@
+---
+title: "Metodos numericos"
+output: html_notebook
+---
+
+
+
+```{r}
+f <- function (x) {
+  return (exp(x) - pi*x)
+}
+
+plot(f)
+
+```
+
+## Metodo de Newton-Raphson
+
+```{r}
+
+fprima <- function(x){
+  return (exp(x) - pi)
+} 
+
+newtonR <- function(x){
+
+  E <- 1
+  error <- 1e-5
+  x1<-0 
+  iteraciones<-0
+  
+  while(error < E){
+    
+    iteraciones <- iteraciones+1  
+    x1 <- x - f(x)/fprima(x)
+    E <- abs(x1-x)/abs(x1)
+    x <- x1
+    
+  }
+  E <<- E
+  iteraciones <<- iteraciones
+  
+  return(x)
+  
+}
+
+
+cat("Primera raiz: ", newtonR(1), "\nError: ", E , "\nIteraciones:", iteraciones)
+
+cat("Segunda raiz: ", newtonR(2), "\nError: ", E, "\nIteraciones:", iteraciones)
+```
+
+## Metodo de biseccion
+
+```{r}
+
+biseccion <- function(a,b){
+  
+  
+  E <- b-a
+  error<- 1e-5
+  x<-0
+  iteraciones<-0
+  
+  while (error < E){
+      
+    x<- (a+b)/2
+    
+    if(f(x)*f(a) < 0 )
+      b = x
+    if(f(x)*f(b) < 0)
+      a = x
+    
+    E <- (b-a)/2
+    
+    iteraciones<-iteraciones+1
+  }
+  iteraciones <<- iteraciones
+  E <<- E
+  return(x)
+}
+
+E<-0
+
+cat("La primera raiz es: ", biseccion(0,1), "\nError: ", E, "\nIteraciones:", iteraciones)
+
+cat("La segunda raiz es: ", biseccion(1,2), "\nError: ", E, "\nIteraciones:", iteraciones)
+
+```
+
+## Metodo de Punto fijo
+
+```{r}
+
+g <- function (x) {
+  return (exp(x)/pi)
+}
+
+puntofijo <- function(a,b){
+  
+  error<-1e-5
+  x<- a
+  E<-b-a
+  iteraciones<-0
+  
+  while(error < E)
+  {
+    x1 <- g(x)
+    
+    if(x != x1){
+      x <- x + pasos
+    }
+    
+    E <- abs(x1 -x)/abs(x1)
+    
+    iteraciones <- iteraciones+1
+  }
+  iteraciones <<- iteraciones
+  E <<- E
+  
+  return (x)
+}
+
+pasos<-1/10000
+
+E<-0
+cat("Primera raiz: ", puntofijo(0,1), "\nError: ", E, "\nIteraciones:", iteraciones)
+
+cat("Segunda raiz: ", puntofijo(1,2), "\nError: ", E, "\nIteraciones:", iteraciones)
+
+```
+
+##Conclusion
+
+Tal y como se puede observar en los datos anteriores, el Metodo de Newton-Raphson es el que mejor converge, ademas presenta el error mas pequeno entre los 3 metodos. No obstante, este metodo tiene el problema de que no se puede garantizar que siempre encuentre la solucion.
+
+Finalmente, cabe destacar que el metodo de punto fijo es el mas lento, sin embargo, el numero de repeticiones depende en gran medida del tamano de los pasos
+
