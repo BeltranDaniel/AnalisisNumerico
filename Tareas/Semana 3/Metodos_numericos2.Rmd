@@ -1,0 +1,114 @@
+---
+title: "Metodos numericos 2"
+output: html_notebook
+---
+
+
+```{r}
+f <- function(x){
+  
+  return (exp(x)-pi*x)
+  
+}
+
+plot(f)
+
+vec <- 0
+iteraciones<- 0
+
+```
+
+## Metodo de secante
+
+```{r}
+
+secante <- function(x0,x1){
+  
+  error <- 1e-5
+  E <- x1-x0
+  x2<-0
+  iteraciones <-0 
+  vec <-0 
+  
+  while(error < E){
+    
+    x2 <- x0 - f(x0)*(x1-x0)/(f(x1)-f(x0))
+    
+    E <- abs(x2 - x1)
+    
+    x0<-x1
+    
+    x1<-x2
+    
+    iteraciones <- iteraciones+1
+    
+    vec <- c(vec, E)
+    
+  }
+  
+  vec<<-vec
+  iteraciones <<- iteraciones
+  
+  return(cat("Raiz: " , x2 , "\nError: ", E, "\nIteraciones:", iteraciones))
+  
+}
+
+```
+
+### Resultado
+
+```{r}
+secante(0,1)
+
+plot(vec[2:iteraciones], xlab="Iteracion", ylab="Error")
+```
+## Metodo de falsa posicion
+
+```{r}
+
+falsaPosicion <- function(a,b){
+  
+  E <- b-a
+  error <- 1e-5
+  vec <-0
+  iteraciones <-0 
+  c <- 0
+  
+  if(f(a)*f(b) > 0)
+  {
+    return(cat("No existe raiz entre ", a, " y ", b))
+    
+  }
+  
+  while(E > error){
+    
+    c<- (f(b)*a - f(a)*b)/(f(b) - f(a)) 
+    
+    if(f(a)*f(c) < 0)
+      b = c
+    else
+      a = c
+    
+    E <-abs(b-a)  
+      
+    vec <- c(vec,E)
+    iteraciones <- iteraciones + 1
+  }
+  
+  vec<<-vec
+  iteraciones <<- iteraciones
+  return(cat("Raiz: " , c , "\nError: ", E, "\nIteraciones:", iteraciones))
+  
+}
+
+
+```
+
+### Resultado
+```{r}
+
+falsaPosicion(1,2)
+plot(vec[2:iteraciones], xlab="Iteracion", ylab="Error")
+
+```
+
