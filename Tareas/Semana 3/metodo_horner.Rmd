@@ -1,0 +1,45 @@
+---
+title: "Metodo de Horner"
+output: html_notebook
+---
+
+El algoritmo de Horner es un metodo que se utiliza para calcular el resultado de polinomios dado un valor determinado de x. Si bien encontrar la solucion de un polinomio es una tarea sencilla, el algoritmo de Horner disminuye la cantidad de operaciones necesarias en comparacion al algoritmo original.
+
+
+$$ Sea\;g\;el\;grado\;del\;polinomio $$
+Resolver sustituyendo requiere
+
+$$ g\;sumas\;y\;\frac{g^2+g}{g}multipliciaciones $$
+Mientras que el algoritmo de Horner solo necesita
+$$ g\;sumas\;y\;g\;multipliciaciones $$
+
+## Ejemplo
+
+A continuacion se desarrollara el algoritmo de horner en R para el siguiente polinomio.
+
+$$ 4x^4 + 7x^3 3x^2 + 6x + 2 $$
+```{r}
+horner <- function(coef, x){
+  
+  resultado <- 0
+  
+  for(a in coef){
+    
+    resultado <- x*resultado + a
+    
+  }
+  
+  return(cat("El resultado es: ", resultado))
+  
+}
+```
+
+## Resultado
+```{r}
+
+x<-8
+num <- c(4,7,3,6,2)
+horner(num,x)
+```
+
+Rerencia bibliografica: https://juncotic.com/metodo-de-horner-algoritmos-antiguos/
