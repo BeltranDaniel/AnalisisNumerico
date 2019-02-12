@@ -1,0 +1,220 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+## Punto 1
+
+```{r}
+horner <- function(coef, x){
+  
+  resultado <- coef[1]
+  iteraciones <-0
+  
+  for(a in coef[2:length(coef)]){
+    
+      resultado <- x*resultado + a
+      iteraciones <- iteraciones + 2
+      
+  }
+  
+  return(cat("El resultado es: ", resultado, "\nEl numero minimo de operaciones es: ", iteraciones,"\nSon ",iteraciones/2," multiplicaciones y ",iteraciones/2, " sumas"))
+  
+}
+
+```
+$$ P(x) = 2x^4 -3x^2+3x-4,x_0=-2 $$
+```{r}
+
+x0 <- -2
+coef <- c(2,0,-3,3,-4)
+horner(coef,x0)
+
+```
+$$ P(x) = 7x^5 + 6x^4 - 6x^3 +3x-4,x_0=3 $$
+
+```{r}
+x0 <- 3
+coef <- c(7,6,-6,0,3,-4)
+horner(coef,x0)
+```
+$$ P(x) = -5x^6 + 3x^4 +2x^2 -4x,x_0=-1 $$
+
+```{r}
+x0 <- -1
+coef <- c(-5,0,3,0,2,-4,0)
+horner(coef,x0)
+```
+
+
+## Punto 2
+
+```{r}
+algoritmo <- function(n){
+
+iteraciones <-0
+vec <- n
+d<-0
+
+while(n > 0){
+  
+  d<- n %% 2
+  n<-floor(n/2)
+  
+  iteraciones <- iteraciones + 1
+  vec <- c(vec,n)
+}
+
+vec <<- vec
+iteraciones <<- iteraciones
+
+return (cat("Iteraciones: ",iteraciones))  
+}
+
+algoritmo(73)
+tabla <- data.frame(cbind(Iteracion=0:iteraciones,Valor=vec))
+tabla
+```
+
+## Punto 3
+
+```{r}
+# Declaración de variables
+E <- 0 # error
+d <- expression( sqrt( ( 2 - 2*cos(t) )^2 + (1 - sin(t) )^2 ) ) # D(t)
+f <- D(d,"t") # D´(t)
+fprima <- D(f,"t") #D´´(t)
+
+newtonR <- function(val){
+  E <- 1
+  error <- 1e-4
+  x1<-0 
+  vec <-0
+  
+  while(error < E){
+    
+    x1 <- val - eval(f, envir=list(t=val))/eval(fprima, envir=list(t=val))
+    E <- abs(x1-val)/abs(x1)
+    val <- x1
+    
+    vec<-c(vec,E) 
+  }
+  
+  E <<- E
+  vec <<- vec
+  
+  return(val)
+  
+}
+
+
+  cat ("El tiempo en el cual R(t) es mas cercano al punto P(2,1,0) es " , newtonR(0.4) , "\nCon un error: ", E) 
+```
+
+## Punto 4
+
+```{r}
+##Código para grafica polar
+
+polar <- function (theta, r, color){
+  y <- 0
+  x <- 0
+  ejex <- 1
+  
+  for (i in 1:length(r)){
+    if(is.nan(r[i])== T){
+      r[i] <- 0
+    }
+  }
+  
+  angulo <- seq(-max(theta),max(theta),by=theta[2]-theta[1])
+  y <- r*sin(theta)
+  x <- r*cos(theta)
+  plot.new()
+  plot.window(xlim = c(-max(r), max(r)), ylim = c(-max(r), max(r)), asp = 1)
+  
+  aux <- max(r)
+  # Dibuja los ejes.
+  while (aux > 0){
+    fi <- aux*sin(angulo)
+    cir <- aux*cos(angulo)
+    points(cir,fi,pch="-",col="gray",cex=0.3)
+    text(ejex+0.2,-0.2,ejex,col="gray")
+    ejex <- ejex + 1
+    aux <- aux - 1
+  }
+  
+  abline(v=((max(cir)+min(cir))/2),col="gray")
+  abline(h=((max(cir)+min(cir))/2),col="gray")
+  segments(-max(r)+0.5,-max(r)+0.5,max(r)-0.5,max(r)-0.5,col="gray")
+  segments(-max(r)+0.5,max(r)-0.5,max(r)-0.5,-max(r)+0.5,col="gray")
+  
+  points(x,y,pch=20,col=color,cex=1)
+  
+}
+
+graficarPuntoPolar <- function(angulo){
+    r <- cos(3*angulo) + exp(angulo)
+    y <- r*sin(angulo)
+    x <- r*cos(angulo)
+    points(x,y,pch=20,col=10,cex=1)
+}
+```
+
+## Grafica metodo de newton
+
+```{r}
+f <- expression( cos(3*t) + exp(t) ) #f(t)
+fprima <- D(f,"t") #f'(t)
+sol1 <- newtonR(0)
+cat("La solución por el método de Newton-Raphson es: ",sol1)
+
+dim <- seq(-pi, pi, by=pi/300) 
+r=cos(3*dim) + exp(dim)
+polar(dim,r,"blue")
+graficarPuntoPolar(sol1)
+```
+
+## Grafica metodo de bisección
+
+```{r}
+f <- function(t){
+    return (cos(3*t) + exp(t))
+}
+
+biseccion <- function(a,b){
+  E <- b-a
+  error<- 1e-5
+  x<-0
+  
+  if(f(a)*f(b) > 0)
+  {
+    return("No existe la raiz en el intervalo especificado")
+  }
+
+  while (error < E){
+    x<- (a+b)/2
+
+    if(f(x)*f(a) < 0 )
+
+      b = x
+
+    if(f(x)*f(b) < 0)
+      a = x
+      
+    E <- (b-a)/2
+  }
+
+  E <<- E
+
+  return(x)
+}
+
+sol2 <- biseccion(-1,0)
+cat("La solución por el método de bisección es: ",sol2)
+
+dim <- seq(-pi, pi, by=pi/300) 
+r=cos(3*dim) + exp(dim)
+polar(dim,r,"blue")
+graficarPuntoPolar(sol2)
+```
+
