@@ -1,0 +1,70 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Aplicando el metodo de aitken al metodo de biseccion se obtiene:
+
+```{r}
+
+f <- function(t){
+    return (cos(3*t) + exp(t))
+}
+
+vec <-0
+biseccion <- function(a,b,i){
+  E <- b-a
+  error<- 1e-5
+  x<-0
+  iteraciones<-0
+  vec <-0
+
+  while (error < E & iteraciones < i ){
+    x<- (a+b)/2
+
+    if(f(x)*f(a) < 0 )
+
+      b = x
+
+    if(f(x)*f(b) < 0)
+      a = x
+      
+    E <- (b-a)/2
+    vec<-c(vec,x)
+    iteraciones<-iteraciones+1
+  }
+  vec<<-vec
+  E <<- E
+
+  return(x)
+}
+
+
+```
+
+
+```{r}
+
+aitken <- function(x,x1,x2){
+  
+  a = x2 - (((x2 - x1)^2)/(x2 -2*x1+x)) 
+  
+  return(a)
+}
+
+i <-18
+iteracion <- 3
+
+biseccion(-pi/2,0,i)
+
+while(iteracion < i ){
+  
+  cat("i= ",iteracion," x=", aitken(vec[iteracion-2],vec[iteracion-1],vec[iteracion]),"\n")
+  iteracion <- iteracion +1
+}
+cat("Resultado sin aceleracion: ", biseccion(-pi/2,0,i), "\n")
+cat("Resultado con aceleracion: ", aitken(vec[i-3],vec[i-2],vec[i-1]), "\n")
+cat("Valor real de la solucion: -1.4954393")
+
+```
+

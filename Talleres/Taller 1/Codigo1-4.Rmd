@@ -61,7 +61,7 @@ while(n > 0){
   n<-floor(n/2)
   
   iteraciones <- iteraciones + 1
-  vec <- c(vec,n)
+  vec <- c(vec,d)
 }
 
 vec <<- vec
@@ -71,7 +71,7 @@ return (cat("Iteraciones: ",iteraciones))
 }
 
 algoritmo(73)
-tabla <- data.frame(cbind(Iteracion=0:iteraciones,Valor=vec))
+tabla <- data.frame(cbind(Iteracion=1:iteraciones,Valor=vec[2:(iteraciones+1)]))
 tabla
 ```
 
@@ -129,9 +129,7 @@ polar <- function (theta, r, color){
   angulo <- seq(-max(theta),max(theta),by=theta[2]-theta[1])
   y <- r*sin(theta)
   x <- r*cos(theta)
-  plot.new()
-  plot.window(xlim = c(-max(r), max(r)), ylim = c(-max(r), max(r)), asp = 1)
-  
+ 
   aux <- max(r)
   # Dibuja los ejes.
   while (aux > 0){
@@ -153,11 +151,18 @@ polar <- function (theta, r, color){
 }
 
 graficarPuntoPolar <- function(angulo){
-    r <- cos(3*angulo) + exp(angulo)
+    r <- 2 + cos(3*angulo)
     y <- r*sin(angulo)
     x <- r*cos(angulo)
     points(x,y,pch=20,col=10,cex=1)
 }
+
+dim <- seq(-pi, pi, by=pi/300) 
+r=cos(3*dim) + exp(dim)
+plot.new()
+plot.window(xlim = c(-3, 3), ylim = c(-3, 3), asp = 1)
+
+polar(dim,r,"blue")
 ```
 
 ## Grafica metodo de newton
@@ -166,11 +171,18 @@ graficarPuntoPolar <- function(angulo){
 f <- expression( cos(3*t) + exp(t) ) #f(t)
 fprima <- D(f,"t") #f'(t)
 sol1 <- newtonR(0)
-cat("La solución por el método de Newton-Raphson es: ",sol1)
+cat("La solución por el método de Newton-Raphson es: ",sol1," i= ", i, "\nCon error de E= ",E)
+
+plot.new()
+plot.window(xlim = c(-3, 3), ylim = c(-3, 3), asp = 1)
 
 dim <- seq(-pi, pi, by=pi/300) 
-r=cos(3*dim) + exp(dim)
+r=2+cos(3*dim)
+polar(dim,r,"green")
+
+r=2-exp(dim)
 polar(dim,r,"blue")
+
 graficarPuntoPolar(sol1)
 ```
 
@@ -181,16 +193,14 @@ f <- function(t){
     return (cos(3*t) + exp(t))
 }
 
+iteraciones <- 0
 biseccion <- function(a,b){
   E <- b-a
   error<- 1e-5
   x<-0
+  iteraciones<-0
+  vec <-0
   
-  if(f(a)*f(b) > 0)
-  {
-    return("No existe la raiz en el intervalo especificado")
-  }
-
   while (error < E){
     x<- (a+b)/2
 
@@ -202,19 +212,29 @@ biseccion <- function(a,b){
       a = x
       
     E <- (b-a)/2
+    vec<-c(vec,E)
+    iteraciones<-iteraciones+1
   }
-
+  vec<<-vec
+  iteraciones <<- iteraciones
   E <<- E
 
   return(x)
 }
 
-sol2 <- biseccion(-1,0)
-cat("La solución por el método de bisección es: ",sol2)
+sol2 <- biseccion(-pi/2,0)
+cat("La solución por el método de bisección es: ",sol2," i= ", iteraciones, "\nCon error de E= ",E)
+
+plot.new()
+plot.window(xlim = c(-3, 3), ylim = c(-3, 3), asp = 1)
 
 dim <- seq(-pi, pi, by=pi/300) 
-r=cos(3*dim) + exp(dim)
+r=2+cos(3*dim)
+polar(dim,r,"green")
+
+r=2-exp(dim)
 polar(dim,r,"blue")
+
 graficarPuntoPolar(sol2)
 ```
 
