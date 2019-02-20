@@ -1,0 +1,114 @@
+---
+title: "Gauss Jordan"
+output: html_notebook
+---
+
+
+```{r}
+#install.packages("pracma")
+gaussPP = function(A, b){
+  if(is.matrix(A)) {
+    n = nrow(A); m = ncol(A)
+    if (m != n) stop("’A’ debe ser una matriz cuadrada.")
+  }
+  # matriz ampliada
+  Ab = cbind(A,b)
+  # Eliminación
+  for (k in 1:(n)){ # desde columna k=1 hasta k=n-1
+    # índice del pivote máximo, en valor absoluto
+    # wich.max( A[k:n,k] ) retorna índice del vector A[k:n,k] = (a_kk, a_(k+1)k,...,a_nk)
+    # Como a_kk tendría índice 1, hay que corregir el índice sumando k-1.
+    
+    if(k != n){
+      fila = which.max( abs(A[k:n,k]) ) + k-1
+      
+      Ab[c(k, fila), ] = Ab[c(fila, k), ]
+      
+      # Si pivote es cero, det A = 0!
+      if(A[fila,k]==0) stop("La matriz es singular")
+      # Eliminación columna k
+      for (i in (k+1):n){# debajo de la diagonal
+        # Fi = Fi - a_ik/a_kk * Fk, i=k+1,...,n
+        Ab[i, ] = Ab[i, ] - Ab[i, k]/Ab[k,k]*Ab[k, ]
+      }  
+    }
+    for(i in (k):1){
+      if(i == k){
+        Ab[i, ] = Ab[i, ]/Ab[i,k]
+      }
+      else{
+
+          Ab[i, ] = Ab[i, ] - Ab[i,k]*Ab[k,]
+      }
+    }
+  }
+  return (Ab);
+}
+```
+
+$3 \times 3$ $$~matrix
+\left( \begin{array}{ccc}
+e & \pi\\
+\frac{1}{3} & \frac{-1}{5}  \end{array} \right)\ =
+
+
+\left( \begin{array}{ccc}
+\frac{1}{2} \\
+4 \end{array} \right)\
+$$
+
+
+
+
+```{r}
+A = matrix(c( exp(1), pi, 
+              1/3, -1/5)
+           , nrow=2, byrow=TRUE)
+b = c(1/2,4)
+
+cond(A)
+
+Ab = gaussPP(A,b)
+
+print("El resultado obtenido es: ")
+formatC(Ab[,-1:-2],digits = 6)
+
+print("El resultado usando solve es: ")
+formatC(solve(A,b),digits = 6)
+
+
+
+```
+
+
+$3 \times 3$ $$~matrix
+\left( \begin{array}{ccc}
+1 & \frac{1}{2} & 3 \\
+4 & 0 & 2 \\
+1 & \frac{1}{4} & 1 \end{array} \right)\ =
+
+\left( \begin{array}{ccc}
+4\\
+6 \\
+0\end{array} \right) 
+$$
+
+
+```{r}
+B = matrix(c( 1, 1/2, 3,
+              4, 0, 2,
+              1, 1/4, 1), nrow=3, byrow=TRUE)
+c = c(4,6,0)
+
+print("El condicional de la matriz es: ")
+cond(B)
+
+Ab = gaussPP(B,c)
+
+print("El resultado obtenido es: ")
+formatC(Ab[,-1:-3],digits = 6)
+
+print("El resultado usando solve es: ")
+formatC(solve(B,c),digits = 6)
+```
+
