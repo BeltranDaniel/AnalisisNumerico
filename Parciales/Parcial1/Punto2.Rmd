@@ -2,7 +2,7 @@
 title: "Parcial 1"
 output: html_notebook
 ---
-Autor: Daniel Fernando Beltr·n Huertas
+Autor: Daniel Fernando Beltr√°n Huertas
 CC: 1032504151
 
 
@@ -17,7 +17,7 @@ g <-function(x){
   return(sin(pi*x))
 }
 
-#intersecciÛn
+#intersecci√≥n
 h <-function(x){
   return (f(x)-g(x))  
 }
@@ -25,9 +25,9 @@ h <-function(x){
 ```
 
 a) Utilice la siguiente formula recursiva con E = 10???9 para determinar al menos dos primeras raices
-reales positivas, que representan la intersecci¥on entre las funciones
+reales positivas, que representan la intersecci¬¥on entre las funciones
 ```{r}
-# El primer y segundo par·metro son aproximaciones de la soluciÛn
+# El primer y segundo par√°metro son aproximaciones de la soluci√≥n
 # Respectivamente corresponden a los valores iniciales de x_(n-1) y x_(n-2) 
 formula <- function(x0, x1, tol){
   
@@ -59,7 +59,7 @@ formula <- function(x0, x1, tol){
     x1 = x
     cat(formatC( c(x ,h(x), err), digits=15, width = -15, format = "f", flag = " "), "\n")
   }
-  return (cat("\n\nLa intersecciÛn se encuentra en el punto x=", x, ", E=",err ," iteraciones = ", cont ,"\n"))
+  return (cat("\n\nLa intersecci√≥n se encuentra en el punto x=", x, ", E=",err ," iteraciones = ", cont ,"\n"))
 }
 
 options(digits = 15)
@@ -69,7 +69,7 @@ formula(3.4,3.2,1e-9)
 ```
 
 
-b) Aplicar otro m¥etodo de: ii. Metodo de Newton
+b) Aplicar otro m¬¥etodo de: ii. Metodo de Newton
 
 
 Metodo de newton
@@ -96,13 +96,13 @@ newton1 = function(f, fp, x0, tol, maxiter){
     cat("---------------------------------------------------------------------------\n")
     
     if(k > maxiter){
-      cat("Se alcanzÛ el m·ximo n˙mero de iteraciones.\n")
+      cat("Se alcanz√≥ el m√°ximo n√∫mero de iteraciones.\n")
       cat("k = ", k, "Estado: x = ", x1, "Error estimado <= ", correccion)
        } else {
-      cat("\n\nLa intersecciÛn se encuentra en el punto x=", x1, ", E=",correccion ," iteraciones = ", k ,"\n")}
+      cat("\n\nLa intersecci√≥n se encuentra en el punto x=", x1, ", E=",correccion ," iteraciones = ", k ,"\n")}
 }
 
-#funcion a encontrar raÌz
+#funcion a encontrar ra√≠z
 f = function(x) tan(pi*x) -sin(pi*x)
 
 #derivada de f con respecto a x
@@ -113,11 +113,11 @@ newton1(f,fp, 1.2, 1e-9, 10)
 newton1(f,fp, 3.3, 1e-9, 10)
 ```
 
-##ConclusiÛn
+##Conclusi√≥n
 
-Observando los datos anteriores se obtuvieron resultados similares en ambos algoritmos. A partir de lo cual se puede suponer que la convergencia del algoritmo A es de orden cuadr·tica, no obstante el mÈtodo de Newton es m·s rapido, ya que el Algoritmo A si se ejecuta varias veces puede resultar en resultados ligeramente distintos debido a que es un algoritmo inestable.
+Observando los datos anteriores se obtuvieron resultados similares en ambos algoritmos. A partir de lo cual se puede suponer que la convergencia del algoritmo A es de orden cuadr√°tica, no obstante el m√©todo de Newton es m√°s rapido, ya que el Algoritmo A es mas inestable.
 
-A partir de las pruebas realizadas se concluyÛ que el mÈtodo de Newton es mejor dado que es m·s estable en funciÛn de los valores iniciales. Esto se debe principalmente a que solo se requiere de una ˙nica aproximaciÛn inicial, mientras que para el Algortimo A son necesarias 2 aproximaciones iniciales, la gran desventaja de requerir 2 aproximaciones es que en particular para funciones periÛdicas como la que se uso en el ejemplo si se emplean 2 valores lejanos de la soluciÛn el mÈtodo no converge al valor esperado.     
+A partir de las pruebas realizadas se concluy√≥ que el m√©todo de Newton es mejor dado que es m√°s estable en funci√≥n de los valores iniciales. Esto se debe principalmente a que solo se requiere de una √∫nica aproximaci√≥n inicial, mientras que para el Algortimo A son necesarias 2 aproximaciones iniciales, la gran desventaja de requerir 2 aproximaciones es que en particular para funciones peri√≥dicas como la que se uso en el ejemplo si se emplean 2 valores lejanos de la soluci√≥n el m√©todo no converge al valor esperado.     
 
 
 
