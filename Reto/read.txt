@@ -1,0 +1,1 @@
+Reto de interpolación de una imagen de un perro
