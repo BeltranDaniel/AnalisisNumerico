@@ -9,9 +9,9 @@ interval <- 20
 h <- 0.1
 tis= seq(0,interval*h,h)
 
-# Usamos la funci髇 ode()
+# Usamos la funci贸n ode()
 sol = ode(c(-1,2), tis, fp, parms=NULL, method = "rk")
-# Representaci髇
+# Representaci贸n
 
 solExacta <- function(x){ return(1.0/5.0*(3.0*exp(3.0*x) + 7.0*exp(-2.0*x))) } 
 
@@ -53,7 +53,7 @@ interval <- 10
 h <- 0.1
 tis= seq(0,interval*h,h)
 
-# Usamos la funci髇 ode()
+# Usamos la funci贸n ode()
 sol = ode(c(X=3, Y=6), tis, fp, parms=NULL, method = "rk")
 plot(sol)
 
@@ -75,7 +75,7 @@ interval <- 10
 h <- 0.1
 tis= seq(0,interval*h,h)
 
-# Usamos la funci髇 ode()
+# Usamos la funci贸n ode()
 sol = ode(c(X = 3, Y = 6), tis, fp, parms=NULL, method = "rk")
 plot(sol)
 
